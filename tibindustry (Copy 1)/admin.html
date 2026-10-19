@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta name="google" content="notranslate">
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrare — TibIndustry</title>
+    <link rel="stylesheet" href="style-v3.css?v=1">
+    <style>
+        .admin-main-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 1.5rem; border-bottom: 1px solid var(--line); }
+        .admin-main-tab {
+            border: none; background: none; cursor: pointer; padding: 0.6rem 1.2rem;
+            font: inherit; font-size: 1rem; font-weight: 600; color: var(--text-soft);
+            border-bottom: 2px solid transparent; margin-bottom: -1px;
+        }
+        .admin-main-tab.active { color: var(--ink); border-bottom-color: var(--gold-dark, var(--ink)); }
+        .admin-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1.2rem 0; }
+        .admin-tab {
+            border: 1px solid var(--line); background: none; cursor: pointer;
+            padding: 0.45rem 1rem; border-radius: 999px; font: inherit; font-size: 0.9rem;
+            color: var(--ink);
+        }
+        .admin-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+        .admin-tab .cnt { opacity: 0.65; font-size: 0.8em; margin-left: 0.3em; }
+        .st-badge {
+            display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px;
+            font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+        }
+        .st-nou      { background: #fdecea; color: #c0392b; }
+        .st-in_lucru { background: #fef5e7; color: #b9770e; }
+        .st-rezolvat { background: #eafaf1; color: #2e7d32; }
+        .sub-detail { background: var(--paper-2); }
+        .sub-detail td { padding: 1rem 1.2rem; }
+        .sub-detail dl { margin: 0 0 0.8rem; display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 1rem; }
+        .sub-detail dt { font-weight: 600; color: var(--text-soft); font-size: 0.85rem; }
+        .sub-detail dd { margin: 0; word-break: break-word; white-space: pre-wrap; }
+        .sub-detail textarea {
+            width: 100%; min-height: 70px; padding: 0.6rem; border: 1px solid var(--line);
+            border-radius: 6px; font: inherit; font-size: 0.9rem; resize: vertical;
+        }
+        .sub-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin-top: 0.7rem; }
+        .sub-actions select { padding: 0.45rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 0.9rem; }
+        .file-btn {
+            border: 1px solid var(--line); background: #fff; cursor: pointer; font: inherit;
+            font-size: 0.85rem; padding: 0.3rem 0.7rem; border-radius: 6px;
+        }
+        .file-btn:hover { border-color: var(--gold-dark); color: var(--gold-dark); }
+        .danger-btn {
+            border: 1px solid #c0392b; color: #c0392b; background: none; cursor: pointer;
+            font: inherit; font-size: 0.85rem; padding: 0.45rem 0.9rem; border-radius: 6px; margin-left: auto;
+        }
+        .danger-btn:hover { background: #c0392b; color: #fff; }
+        .admin-search {
+            width: 100%; max-width: 340px; padding: 0.55rem 0.8rem;
+            border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 0.9rem;
+        }
+        .row-toggle { cursor: pointer; }
+    </style>
+</head>
+<body class="page-admin">
+
+    <header>
+        <h1 class="brand-corner"><a href="index.html"><span class="brand-text"><img src="images/tib-industry-3d.png" alt="Tib Industry" class="brand-img brand-logo-full"></span></a></h1>
+        <div class="header-right">
+            <a href="index.html" class="header-cta">Site</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="cart-breadcrumb">
+            <a href="index.html">Acasă</a>
+            <span>›</span>
+            <span>Administrare</span>
+        </div>
+
+        <section class="about-hero" style="padding-bottom: 0;">
+            <span class="about-eyebrow">Administrare</span>
+            <h1>Panou <em>intern</em></h1>
+            <div class="lux-ornament dark"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+            <p>Gestionează cererile de ofertă, CV-urile și mesajele de contact, creează oferte cu link de plată și urmărește statusul plăților — totul dintr-un singur loc.</p>
+        </section>
+
+        <section class="contact-layout">
+            <div class="contact-form-card" style="grid-column: 1 / -1; max-width: 1100px; margin: 0 auto;">
+
+                <!-- LOGIN -->
+                <div id="loginStep">
+                    <h2>Autentificare <em>admin</em></h2>
+                    <form class="cart-form" id="loginForm" novalidate>
+                        <label class="full">
+                            <span>Parolă <em>*</em></span>
+                            <input type="password" name="password" id="adminPw" required placeholder="••••••••">
+                        </label>
+                        <button type="button" class="contact-submit" id="loginBtn">Intră →</button>
+                    </form>
+                    <p class="voucher-msg" id="loginMsg" style="margin-top:0.75rem;"></p>
+                </div>
+
+                <!-- PANOU -->
+                <div id="adminPanel" hidden>
+
+                    <div class="admin-main-tabs" id="mainTabs">
+                        <button type="button" class="admin-main-tab active" data-section="cereri">Cereri &amp; mesaje</button>
+                        <button type="button" class="admin-main-tab" data-section="plati">Oferte &amp; plăți</button>
+                    </div>
+                    <div style="text-align:right;margin:-0.5rem 0 0.75rem;">
+                        <button type="button" class="order-modal-btn" id="logoutBtn">Ieși din cont</button>
+                    </div>
+
+                    <!-- ===== SECȚIUNEA CERERI ===== -->
+                    <div id="sectionCereri">
+                        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+                            <h2 style="margin:0;">Cereri <em>primite</em></h2>
+                            <button type="button" class="order-modal-btn" id="refreshBtn">Reîncarcă</button>
+                        </div>
+
+                        <div class="admin-tabs" id="tabs">
+                            <button type="button" class="admin-tab active" data-type="">Toate <span class="cnt"></span></button>
+                            <button type="button" class="admin-tab" data-type="oferta">Cereri ofertă <span class="cnt"></span></button>
+                            <button type="button" class="admin-tab" data-type="cv">CV-uri <span class="cnt"></span></button>
+                            <button type="button" class="admin-tab" data-type="contact">Contact <span class="cnt"></span></button>
+                        </div>
+
+                        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
+                            <input type="search" class="admin-search" id="searchBox" placeholder="Caută după nume, email, telefon, text…">
+                            <label style="display:flex;align-items:center;gap:0.4rem;font-size:0.9rem;color:var(--text-soft);">
+                                <input type="checkbox" id="hideDone"> ascunde rezolvate
+                            </label>
+                        </div>
+
+                        <div style="overflow-x:auto;">
+                            <table class="admin-table" id="subsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th><th>Tip</th><th>Nume</th><th>Contact</th>
+                                        <th>Fișiere</th><th>Status</th><th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="subsBody"></tbody>
+                            </table>
+                        </div>
+                        <p class="voucher-msg" id="listMsg" style="margin-top:0.75rem;"></p>
+                    </div>
+
+                    <!-- ===== SECȚIUNEA PLĂȚI ===== -->
+                    <div id="sectionPlati" hidden>
+                        <h2>Creează <em>ofertă</em></h2>
+                        <form class="cart-form" id="createForm" novalidate>
+                            <div class="form-row">
+                                <label>
+                                    <span>Nume client <em>*</em></span>
+                                    <input type="text" name="name" id="cName" required placeholder="Ion Popescu">
+                                </label>
+                                <label>
+                                    <span>Email client (pt. trimiterea codului)</span>
+                                    <input type="email" name="email" id="cEmail" placeholder="client@example.com">
+                                </label>
+                            </div>
+                            <div class="form-row">
+                                <label>
+                                    <span>Sumă totală proiect <em>*</em></span>
+                                    <input type="text" name="total" id="cTotal" required placeholder="ex: 10000">
+                                </label>
+                                <label>
+                                    <span>Avans de plată <em>*</em></span>
+                                    <input type="text" name="advance" id="cAdvance" required placeholder="ex: 3000">
+                                </label>
+                            </div>
+                            <button type="button" class="contact-submit" id="createBtn">Creează oferta →</button>
+                        </form>
+                        <p class="voucher-msg" id="createMsg" style="margin-top:0.75rem;"></p>
+
+                        <div class="pay-bank" id="linkBox" hidden style="margin-top:1.2rem;">
+                            <h3 class="pay-bank-title">Link de plată avans</h3>
+                            <div class="pay-row"><span>Referință</span><strong id="newRef"></strong></div>
+                            <div class="pay-row"><span>Link client</span><strong id="newLink" style="word-break:break-all;"></strong></div>
+                            <button type="button" class="order-modal-btn" id="copyLinkBtn" style="margin-top:0.6rem;">Copiază link-ul</button>
+                        </div>
+
+                        <hr style="border:none;border-top:1px solid var(--line);margin:2rem 0;">
+
+                        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+                            <h2 style="margin:0;">Oferte <em>existente</em></h2>
+                            <button type="button" class="order-modal-btn" id="payRefreshBtn">Reîncarcă</button>
+                        </div>
+                        <div style="overflow-x:auto;margin-top:1rem;">
+                            <table class="admin-table" id="offersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Referință</th><th>Client</th><th>Total</th><th>Avans</th>
+                                        <th>Cod</th><th>Avans plătit</th><th>Final plătit</th><th>Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="offersBody"></tbody>
+                            </table>
+                        </div>
+                        <p class="voucher-msg" id="payListMsg" style="margin-top:0.75rem;"></p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TibIndustry SRL. Panou intern.</p>
+        </div>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
