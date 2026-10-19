@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta name="google" content="notranslate">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cere ofertă — TibIndustry</title>
+    <link rel="stylesheet" href="style-v3.css?v=1">
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+    <script src="vendor/gsap.min.js"></script>
+</head>
+<body class="page-oferta">
+
+    <header>
+        <h1 class="brand-corner"><a href="index.html"><span class="brand-text"><img src="images/tib-industry-3d.png" alt="Tib Industry" class="brand-img brand-logo-full"></span></a></h1>
+        <nav class="header-nav" id="headerNav">
+            <a href="confectii-metalice.html">Confecții metalice</a>
+            <a href="amenajari-interioare.html">Amenajări</a>
+            <a href="industriale.html">Industriale</a>
+            <a href="index.html" class="nav-logo" aria-label="TibIndustry - Acasa"><span class="brand-text"><img src="images/tib-industry-3d.png" alt="Tib Industry" class="brand-img brand-logo-full"></span></a>
+            <a href="militare.html">Militare</a>
+            <a href="cariere.html">Cariere</a>
+            <a href="despre-noi.html">Despre</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="header-right">
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+                    <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span class="lang-current-code" id="langCurrent">RO</span>
+                    <svg class="lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="lang-menu" id="langMenu" role="menu">
+                    <div class="lang-menu-header">Alege limba</div>
+                    <a data-lang="ro"><span class="flag">🇷🇴</span> Română <span class="lang-code">RO</span></a>
+                    <a data-lang="en"><span class="flag">🇬🇧</span> English <span class="lang-code">EN</span></a>
+                    <a data-lang="de"><span class="flag">🇩🇪</span> Deutsch <span class="lang-code">DE</span></a>
+                    <a data-lang="fr"><span class="flag">🇫🇷</span> Français <span class="lang-code">FR</span></a>
+                    <a data-lang="it"><span class="flag">🇮🇹</span> Italiano <span class="lang-code">IT</span></a>
+                    <a data-lang="es"><span class="flag">🇪🇸</span> Español <span class="lang-code">ES</span></a>
+                    <div class="lang-divider"></div>
+                    <a data-lang="hu"><span class="flag">🇭🇺</span> Magyar <span class="lang-code">HU</span></a>
+                    <a data-lang="pl"><span class="flag">🇵🇱</span> Polski <span class="lang-code">PL</span></a>
+                    <a data-lang="ru"><span class="flag">🇷🇺</span> Русский <span class="lang-code">RU</span></a>
+                    <a data-lang="uk"><span class="flag">🇺🇦</span> Українська <span class="lang-code">UK</span></a>
+                    <a data-lang="ar"><span class="flag">🇸🇦</span> العربية <span class="lang-code">AR</span></a>
+                    <a data-lang="zh-CN"><span class="flag">🇨🇳</span> 中文 <span class="lang-code">ZH</span></a>
+                    <a data-lang="ja"><span class="flag">🇯🇵</span> 日本語 <span class="lang-code">JA</span></a>
+                    <a data-lang="tr"><span class="flag">🇹🇷</span> Türkçe <span class="lang-code">TR</span></a>
+                    <div class="lang-divider"></div>
+                    <a class="more-langs" data-lang="all">+ Toate limbile disponibile</a>
+                </div>
+                <div id="google_translate_element"></div>
+            </div>
+            <a href="cerere-oferta.html" class="header-cta">Cere ofertă</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Meniu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <main>
+        <div class="cart-breadcrumb">
+            <a href="index.html">Acasă</a>
+            <span>›</span>
+            <span>Cere ofertă</span>
+        </div>
+
+        <section class="about-hero" style="padding-bottom: 0;">
+            <span class="about-eyebrow">Cerere ofertă</span>
+            <h1>Spune-ne ce ai în <em>plan</em></h1>
+            <div class="lux-ornament dark"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+            <p>Completează formularul și te contactăm în 24h cu o ofertă completă: materiale premium, termen ferm și preț fix. Răspunsurile noastre nu vin niciodată cu condiții ascunse.</p>
+        </section>
+
+        <section class="contact-layout">
+            <aside class="contact-info">
+                <h2>Cum te ajutăm <em>concret</em></h2>
+                <div class="info-row">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <strong>Pasul 1 — Cererea ta</strong>
+                        <span>Trimite descrierea proiectului, dimensiuni, materiale dorite. Fotografii sau schițe ajută enorm.</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <strong>Pasul 2 — Răspunsul nostru</strong>
+                        <span>În maxim 24h primești ofertă cu materiale, manoperă, termen și plată eșalonată.</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <strong>Pasul 3 — Vizită gratuită</strong>
+                        <span>Pentru proiecte mari venim gratuit la fața locului pentru măsurători și clarificări.</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="info-text">
+                        <strong>Pasul 4 — Execuție & montaj</strong>
+                        <span>Tot procesul rămâne la noi: producție, transport, montaj, garanție.</span>
+                    </div>
+                </div>
+                <div class="map-placeholder">
+                    <div id="tib-map" role="img" aria-label="Sediu TIB Industry — Str. București-Pitești 195B, Ștefănești, Argeș"></div>
+                </div>
+            </aside>
+
+            <div class="contact-form-card">
+                <h2>Formular <em>cerere</em></h2>
+                <form class="cart-form" id="quoteForm" novalidate>
+                    <div class="form-row">
+                        <label>
+                            <span>Nume complet <em>*</em></span>
+                            <input type="text" name="name" required placeholder="Ion Popescu">
+                        </label>
+                        <label>
+                            <span>Telefon <em>*</em></span>
+                            <input type="tel" name="phone" required placeholder="07XX XXX XXX">
+                        </label>
+                    </div>
+                    <label class="full">
+                        <span>Email <em>*</em></span>
+                        <input type="email" name="email" required placeholder="email@example.com">
+                    </label>
+                    <label class="full">
+                        <span>Tip lucrare <em>*</em></span>
+                        <select name="type" required>
+                            <option value="">— Alege diviziunea —</option>
+                            <option>Confecții metalice (porți, balustrade, scări)</option>
+                            <option>Amenajări interioare (mobilier metal & lemn)</option>
+                            <option>Confecții industriale (hale, structuri)</option>
+                            <option>Confecții militare (cufere, dulapuri arme)</option>
+                            <option>Altceva / nu sunt sigur</option>
+                        </select>
+                    </label>
+                    <label class="full">
+                        <span>Localitate</span>
+                        <input type="text" name="city" placeholder="București, Cluj, Brașov...">
+                    </label>
+                    <label class="full">
+                        <span>Descrie proiectul <em>*</em></span>
+                        <textarea name="description" required rows="5" placeholder="Ex: balustradă inox + lemn stejar pentru scară interioară, lungime 4m, 12 trepte. Vreau finisaj patinat..."></textarea>
+                    </label>
+                    <label class="full">
+                        <span>Buget estimativ (opțional)</span>
+                        <input type="text" name="budget" placeholder="ex: 5.000 — 8.000 lei">
+                    </label>
+                    <div class="full">
+                        <span class="field-label">Atașează desene / schițe / poze (opțional)</span>
+                        <div class="cv-dropzone" id="attDropzone" tabindex="0" role="button" aria-label="Trage fișiere aici sau apasă pentru a alege din calculator / telefon">
+                            <input type="file" name="files[]" id="attInput" accept=".pdf,.doc,.docx,.odt,.rtf,.txt,.jpg,.jpeg,.png,.webp,.gif,.heic,.dwg,.dxf" multiple hidden>
+                            <div class="cv-dz-empty">
+                                <svg class="cv-dz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                <p class="cv-dz-title">Trage desenele / pozele aici</p>
+                                <p class="cv-dz-sub">sau <span class="cv-dz-browse">alege din calculator / telefon</span></p>
+                                <p class="cv-dz-hint">Imagini, PDF, DWG, DXF · mai multe fișiere · max. 50 MB / fișier</p>
+                            </div>
+                        </div>
+                        <ul class="att-list" id="attList"></ul>
+                        <p class="cv-dz-error" id="attError" hidden></p>
+                    </div>
+                    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+                    <button type="button" class="contact-submit" id="submitQuote">Trimite cererea →</button>
+                </form>
+                <p class="voucher-msg" id="quoteMsg" style="margin-top: 0.75rem;"></p>
+            </div>
+        </section>
+
+        <section class="contact-layout" style="padding-top: 0;">
+            <div class="pay-summary" style="grid-column: 1 / -1; max-width: 640px; margin: 0 auto; text-align: center;">
+                <h3 class="pay-bank-title" style="text-align:center;">Ai primit deja o ofertă de la noi?</h3>
+                <p class="pay-note" style="margin: 0 auto 1rem; max-width: 48ch;">Dacă ți-am stabilit deja oferta, poți plăti avansul cu referința primită, iar mai târziu suma finală cu codul tău.</p>
+                <div class="order-modal-actions" style="flex-wrap: wrap;">
+                    <a href="plata-avans.html" class="order-modal-btn">Plătește avansul</a>
+                    <a href="plata-finala.html" class="order-modal-btn">Ai un cod? Plată finală</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUCCESS MODAL -->
+        <div class="order-modal" id="successModal" hidden>
+            <div class="order-modal-card">
+                <div class="order-check">✓</div>
+                <h3>Mulțumim, am primit cererea!</h3>
+                <p>Un coleg din echipa noastră te va contacta în maxim 24h cu detaliile ofertei și cu referința pentru plata avansului. Verifică inclusiv folderul Spam pentru emailul de confirmare.</p>
+                <div class="order-modal-actions">
+                    <a href="plata-avans.html" class="order-modal-btn">Plătește avansul</a>
+                    <a href="index.html" class="order-modal-btn">Înapoi la prima pagină</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="brand-text"><img src="images/tib-industry-3d.png" alt="Tib Industry" class="brand-img brand-logo-full"></span>
+                <p>Atelier de confecții metalice și amenajări interioare în metal & lemn masiv.</p>
+            </div>
+            <div class="footer-links">
+                <strong>Diviziuni</strong>
+                <a href="confectii-metalice.html">Confecții metalice</a>
+                <a href="amenajari-interioare.html">Amenajări interioare</a>
+                <a href="industriale.html">Industriale</a>
+                <a href="militare.html">Militare</a>
+            </div>
+            <div class="footer-links">
+                <strong>Companie</strong>
+                <a href="despre-noi.html">Despre noi</a>
+                <a href="cariere.html">Cariere</a>
+                <a href="contact.html">Contact</a>
+                <a href="cerere-oferta.html">Cere ofertă</a>
+            </div>
+            <div class="footer-links">
+                <strong>Plăți</strong>
+                <a href="plata-avans.html">Plată avans</a>
+                <a href="plata-finala.html">Plată finală</a>
+            </div>
+            <div class="footer-social-col">
+                <strong>Urmărește-ne</strong>
+                <div class="footer-social">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg class="social-icon" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg class="social-icon" viewBox="0 0 24 24" fill="white"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12c0 3.259.014 3.668.072 4.948.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24c3.259 0 3.668-.014 4.948-.072 1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.689.072-4.948 0-3.259-.014-3.667-.072-4.947-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.668.012 15.259 0 12 0zm0 5.838c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.753-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4z"/></svg></a>
+                    <a href="https://wa.me/40700000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg class="social-icon" viewBox="0 0 24 24" fill="white"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TibIndustry SRL. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+    <script src="vendor/leaflet/leaflet.js"></script>
+    <script src="js/cerere-oferta.js"></script>
+    <script src="script.js?v=3"></script>
+    <script src="forms.js"></script>
+    <script src="js/cerere-oferta-2.js"></script>
+</body>
+</html>

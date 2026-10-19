@@ -1,0 +1,2086 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ============================================================
+   TibIndustry — Design System v3
+   Limbaj vizual editorial adaptat din tema „Maison":
+   Cormorant Garamond + Inter · crem / charcoal / terracotta
+   colțuri drepte · hairlines · spațiere generoasă · reveal lent
+
+   Toate numele de clase din v2 sunt păstrate, deci cele 13
+   pagini funcționează fără modificări de structură.
+   ============================================================ */
+
+:root {
+    /* --- paletă: triplete HSL, ca să permită hsl(var(--x) / alpha) --- */
+    --background:        40 33% 97%;
+    --foreground:        30 10% 15%;
+    --card:              40 30% 95%;
+    --muted:             30 10% 90%;
+    --muted-foreground:  30  8% 45%;
+    --accent:            35 40% 92%;
+    --secondary:         30 15% 85%;
+    --border-c:          30 15% 88%;
+    --taupe:             30 15% 75%;
+    --linen-c:           35 25% 93%;
+    --charcoal:          30 10% 13%;
+    --terracotta:        18 45% 45%;
+    --terracotta-light:  18 45% 55%;
+    --terracotta-pale:   18 40% 68%;
+
+    /* --- tipografie --- */
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans:  'Inter', system-ui, -apple-system, Arial, sans-serif;
+
+    /* --- ritm & măsuri --- */
+    --maxw:        1600px;
+    --maxw-mid:    1280px;
+    --maxw-narrow: 1040px;
+    --maxw-text:   880px;
+    --pad:   clamp(1.5rem, 4vw, 3rem);
+    --sec-y: clamp(4.5rem, 10vw, 8.5rem);
+
+    /* colțuri aproape drepte — semnătura vizuală a temei */
+    --r-sm: 2px;
+    --r-md: 2px;
+    --r-lg: 3px;
+
+    --ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --shadow:    0 28px 70px -34px hsl(30 20% 18% / 0.30);
+    --shadow-sm: 0 10px 28px -16px hsl(30 20% 18% / 0.22);
+
+    /* ------------------------------------------------------------
+       Aliasuri legacy — paginile au stiluri inline care folosesc
+       var(--ink), var(--line), var(--text-soft), var(--gold-dark),
+       var(--orange-dark), var(--paper-2). Nu le șterge.
+       ------------------------------------------------------------ */
+    --ink:        hsl(var(--foreground));
+    --ink-2:      hsl(30 10% 24%);
+    --ink-3:      hsl(var(--muted-foreground));
+    --paper:      hsl(var(--background));
+    --paper-2:    hsl(var(--linen-c));
+    --paper-3:    hsl(var(--accent));
+    --gold:       hsl(var(--terracotta));
+    --gold-dark:  hsl(var(--terracotta));
+    --gold-soft:  hsl(var(--terracotta-light));
+    --orange:      hsl(var(--terracotta));
+    --orange-dark: hsl(var(--terracotta));
+    --pink:        hsl(var(--terracotta));
+    --pink-dark:   hsl(var(--terracotta));
+    --teal:        hsl(var(--terracotta-light));
+    --teal-dark:   hsl(var(--terracotta));
+    --white:      hsl(var(--background));
+    --text:       hsl(var(--foreground));
+    --text-soft:  hsl(var(--muted-foreground));
+    --line:       hsl(var(--border-c));
+    --line-soft:  hsl(var(--border-c) / 0.55);
+    --line-light: hsl(var(--background) / 0.18);
+
+    /* text pe fundaluri închise (hero, cta, footer) */
+    --on-dark:       hsl(var(--background));
+    --on-dark-soft:  hsl(var(--background) / 0.68);
+    --on-dark-faint: hsl(var(--background) / 0.42);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    /* ascunde caretul peste tot, mai puțin în câmpurile editabile */
+    caret-color: transparent;
+}
+input, textarea, select, [contenteditable="true"] { caret-color: auto; }
+
+body {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: hsl(var(--foreground));
+    background: hsl(var(--background));
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern" 1, "liga" 1;
+    text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+::selection { background: hsl(var(--terracotta) / 0.16); color: hsl(var(--foreground)); }
+
+/* scrollbar discret */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--taupe) / 0.45); }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--taupe) / 0.7); }
+
+/* ============================================================
+   TIPOGRAFIE
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--serif);
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: hsl(var(--foreground));
+    text-wrap: balance;
+}
+
+/* accentul italic — mutarea semnătură a temei */
+em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: hsl(var(--terracotta));
+}
+
+p { text-wrap: pretty; }
+
+.container { max-width: var(--maxw-mid); margin-inline: auto; padding-inline: var(--pad); }
+
+/* --- eyebrow: 10px, tracking 0.3em, uppercase, terracotta ---
+   .sec-label are markup <span class="num">01</span> Titlu       */
+.sec-label,
+.lux-section-head .eyebrow,
+.intro-eyebrow, .section-eyebrow, .press-eyebrow,
+.cta-eyebrow, .service-eyebrow, .about-eyebrow,
+.clients-cat-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--sans);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: hsl(var(--terracotta));
+}
+.sec-label .num { font-weight: 600; color: hsl(var(--terracotta) / 0.55); }
+.sec-label::before,
+.lux-section-head .eyebrow::before,
+.intro-eyebrow::before, .section-eyebrow::before,
+.service-eyebrow::before, .about-eyebrow::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: hsl(var(--terracotta) / 0.5);
+    display: inline-block;
+    flex: 0 0 auto;
+}
+
+/* ornament linie—romb—linie (există deja în markup pe paginile interioare) */
+.lux-ornament {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    max-width: 190px;
+}
+.lux-ornament .line { flex: 1; height: 1px; background: currentColor; opacity: 0.28; }
+.lux-ornament .diamond {
+    width: 5px; height: 5px;
+    background: hsl(var(--terracotta-light));
+    transform: rotate(45deg);
+    flex: 0 0 auto;
+}
+
+/* ============================================================
+   HEADER — transparent sus, crem cu blur după scroll
+   (script.js pune .scrolled la scrollY > 30)
+   ============================================================ */
+header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.1rem var(--pad);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: padding .5s var(--ease), background .5s var(--ease),
+                border-color .5s var(--ease), backdrop-filter .5s var(--ease);
+}
+header.scrolled {
+    padding-top: 0.75rem; padding-bottom: 0.75rem;
+    background: hsl(var(--background) / 0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: hsl(var(--border-c));
+}
+header h1 { font-size: 1rem; margin: 0; }
+
+.brand-text {
+    font-family: var(--serif);
+    font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+    display: inline-flex; align-items: center;
+}
+.brand-text span { color: hsl(var(--terracotta)); }
+.brand-img { height: 1.6em; width: auto; display: block; margin-right: 0.05em; }
+.brand-logo-full { height: 1.75em; width: auto; margin: 0; }
+.brand-corner { display: none; }
+
+.header-nav {
+    display: flex; flex: 1; justify-content: center; align-items: center;
+    gap: 0.15rem; flex-wrap: wrap;
+}
+.header-nav a {
+    position: relative;
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    padding: 0.55rem 0.85rem;
+    transition: color .35s var(--ease);
+}
+/* subliniere care crește dinspre stânga */
+.header-nav a::after {
+    content: "";
+    position: absolute; left: 0.85rem; right: 0.85rem; bottom: 0.3rem;
+    height: 1px; background: currentColor;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .5s var(--ease-out);
+}
+.header-nav a:hover { color: hsl(var(--foreground)); }
+.header-nav a:hover::after { transform: scaleX(1); }
+
+.nav-logo { margin: 0 0.9rem; padding: 0; }
+.nav-logo::after { display: none; }
+.nav-logo .brand-text { font-size: 1.5rem; }
+
+.header-right { display: flex; align-items: center; gap: 0.7rem; }
+
+/* CTA header — dreptunghi, uppercase, tracking */
+.header-cta {
+    position: relative; overflow: hidden;
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 0.85rem 1.35rem;
+    border-radius: 0;
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    transition: background .4s var(--ease);
+}
+.header-cta::after { content: "→"; transition: transform .35s var(--ease); }
+.header-cta:hover { background: hsl(var(--terracotta)); }
+.header-cta:hover::after { transform: translateX(4px); }
+
+/* ---- Language switcher (markup & ID-uri păstrate) ---- */
+.lang-switcher { position: relative; }
+.lang-btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: transparent;
+    border: 1px solid hsl(var(--border-c));
+    color: hsl(var(--foreground));
+    font-family: var(--sans); font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 0.6rem 0.75rem; border-radius: 0; cursor: pointer;
+    transition: border-color .3s, background .3s;
+}
+.lang-btn:hover { border-color: hsl(var(--terracotta)); background: hsl(var(--accent)); }
+.lang-globe { width: 15px; height: 15px; }
+.lang-chevron { width: 12px; height: 12px; transition: transform .35s var(--ease); }
+.lang-btn.active .lang-chevron { transform: rotate(180deg); }
+.lang-menu {
+    position: absolute; top: calc(100% + 0.6rem); right: 0; width: 250px;
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    box-shadow: var(--shadow);
+    padding: 0.4rem; max-height: 0; overflow: hidden;
+    opacity: 0; pointer-events: none; transform: translateY(-8px);
+    transition: opacity .3s var(--ease), transform .3s var(--ease), max-height .3s var(--ease);
+}
+.lang-menu.open { max-height: 430px; overflow-y: auto; opacity: 1; pointer-events: auto; transform: translateY(0); }
+.lang-menu-header {
+    font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.24em;
+    color: hsl(var(--muted-foreground)); padding: 0.65rem 0.7rem 0.45rem;
+}
+.lang-menu a {
+    display: flex; align-items: center; gap: 0.55rem;
+    padding: 0.55rem 0.7rem; border-radius: 0;
+    font-size: 0.84rem; font-weight: 500;
+    color: hsl(var(--foreground)); cursor: pointer;
+    transition: background .2s, color .2s;
+}
+.lang-menu a:hover { background: hsl(var(--accent)); }
+.lang-menu a.active { background: hsl(var(--terracotta) / 0.1); color: hsl(var(--terracotta)); }
+.lang-menu .flag { font-size: 1rem; }
+.lang-menu .lang-code {
+    margin-left: auto; font-size: 0.62rem; font-weight: 600;
+    color: hsl(var(--muted-foreground)); letter-spacing: 0.12em;
+}
+.lang-divider { height: 1px; background: hsl(var(--border-c)); margin: 0.35rem 0.4rem; }
+.more-langs {
+    color: hsl(var(--terracotta)) !important;
+    font-weight: 600 !important; font-size: 0.78rem !important;
+}
+#google_translate_element { display: none; }
+
+/* Ascunde bara / tooltip-urile Google Translate */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+.goog-te-gadget-icon,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-text-highlight,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-ZVi9od-aZ2wEe-OiiCO {
+    display: none !important;
+    visibility: hidden !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+html, body { top: 0 !important; position: static !important; }
+.skiptranslate > iframe { display: none !important; }
+
+/* mobile menu toggle */
+.nav-toggle {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 8px;
+}
+.nav-toggle span {
+    width: 22px; height: 1.5px; background: hsl(var(--foreground));
+    transition: transform .35s var(--ease), opacity .3s;
+}
+.nav-toggle.active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ============================================================
+   BUTOANE — dreptunghiulare, uppercase, tracking larg
+   ============================================================ */
+.btn, .hero-btn, .contact-submit, .order-modal-btn {
+    position: relative; overflow: hidden;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.8rem;
+    font-family: var(--sans);
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 1.15rem 2.4rem;
+    border: 1px solid hsl(var(--foreground));
+    border-radius: 0; cursor: pointer;
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    transition: background .45s var(--ease), color .45s var(--ease), border-color .45s var(--ease);
+}
+.btn::after, .hero-btn::after, .contact-submit::after {
+    content: "→"; font-size: 0.85rem;
+    transition: transform .35s var(--ease);
+}
+/* luciu care urcă dinspre bază (btn-premium) */
+.btn::before, .hero-btn::before, .contact-submit::before {
+    content: ""; position: absolute; inset: 0;
+    background: hsl(var(--background) / 0.12);
+    transform: translateY(100%);
+    transition: transform .55s var(--ease-out);
+    pointer-events: none;
+}
+.btn:hover::before, .hero-btn:hover::before, .contact-submit:hover::before { transform: translateY(0); }
+.btn:hover::after, .hero-btn:hover::after, .contact-submit:hover::after { transform: translateX(5px); }
+.btn:hover, .hero-btn:hover, .contact-submit:hover {
+    background: hsl(var(--terracotta));
+    border-color: hsl(var(--terracotta));
+}
+.contact-submit:disabled, .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-outline, .hero-btn-outline {
+    background: transparent;
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border-c));
+}
+.btn-outline:hover, .hero-btn-outline:hover {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    border-color: hsl(var(--foreground));
+}
+
+/* ripple injectat de script.js */
+.ripple {
+    position: absolute; border-radius: 50%; transform: scale(0);
+    background: hsl(var(--background) / 0.35);
+    animation: ripple .6s linear; pointer-events: none;
+}
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+/* ============================================================
+   HERO — viewport plin, ken-burns lent, titlu serif enorm
+   ============================================================ */
+.hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: clamp(7rem, 16vw, 10rem) var(--pad) clamp(2.5rem, 5vw, 4rem);
+    background: hsl(var(--charcoal));
+    color: var(--on-dark);
+    overflow: hidden;
+}
+/* stratul de imagine — se scalează lent (ken-burns) */
+.hero-bg-overlay {
+    position: absolute; inset: -2%;
+    background-image: url('images/tib-hero.png');
+    background-size: clamp(280px, 44vw, 620px);
+    background-position: center 38%;
+    background-repeat: no-repeat;
+    animation: ken-burns 24s var(--ease) forwards;
+    z-index: 0;
+}
+/* gradientul stă peste imagine, dar nu se scalează */
+.hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg,
+        hsl(30 10% 6% / 0.30) 0%,
+        hsl(30 10% 6% / 0.12) 42%,
+        hsl(30 10% 6% / 0.80) 100%);
+}
+.hero-content {
+    position: relative; z-index: 2;
+    max-width: var(--maxw); width: 100%;
+    margin-inline: auto;
+}
+.hero .sec-label { color: var(--on-dark-soft); }
+.hero .sec-label::before { background: hsl(var(--terracotta-light)); }
+.hero .sec-label .num { color: hsl(var(--terracotta-light)); }
+
+.hero-badge {
+    display: inline-block;
+    font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--on-dark-soft);
+    margin-bottom: 1.8rem;
+}
+.hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.9rem, 9vw, 8rem);
+    font-weight: 500; line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--on-dark);
+    max-width: 16ch;
+}
+.hero-title em, .hero-accent {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    color: hsl(var(--terracotta-pale));
+}
+.hero-sub {
+    margin-top: 2rem;
+    max-width: 52ch;
+    font-size: clamp(0.98rem, 1.4vw, 1.14rem);
+    line-height: 1.75;
+    font-weight: 300;
+    color: var(--on-dark-soft);
+}
+.hero-ctas, .hero-actions, .cta-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.6rem;
+}
+.hero .hero-btn {
+    background: hsl(var(--background)); color: hsl(var(--charcoal));
+    border-color: hsl(var(--background));
+}
+.hero .hero-btn::before { background: hsl(var(--charcoal) / 0.08); }
+.hero .hero-btn:hover {
+    background: hsl(var(--terracotta)); color: hsl(var(--background));
+    border-color: hsl(var(--terracotta));
+}
+.hero .hero-btn-outline {
+    background: transparent; color: var(--on-dark);
+    border-color: hsl(var(--background) / 0.3);
+}
+.hero .hero-btn-outline:hover {
+    background: hsl(var(--background)); color: hsl(var(--charcoal));
+    border-color: hsl(var(--background));
+}
+
+/* rând de metrici, separat printr-un hairline */
+.hero-metrics {
+    position: relative; z-index: 2;
+    max-width: var(--maxw); width: 100%; margin: clamp(3rem, 6vw, 4.5rem) auto 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    border-top: 1px solid hsl(var(--background) / 0.18);
+    padding-top: 2.2rem;
+}
+.hero-metric .val {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+    line-height: 1;
+    color: hsl(var(--terracotta-pale));
+}
+.hero-metric .lbl {
+    display: block; margin-top: 0.6rem;
+    font-size: 0.64rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--on-dark-faint);
+}
+
+/* indicator de scroll (adăugat în index.html) */
+.hero-scroll {
+    position: absolute; z-index: 2;
+    bottom: 1.6rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    pointer-events: none;
+}
+.hero-scroll span {
+    font-size: 0.6rem; font-weight: 500;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--on-dark-faint);
+}
+.hero-scroll svg {
+    width: 15px; height: 15px; color: var(--on-dark-faint);
+    animation: scroll-nudge 2.4s ease-in-out infinite;
+}
+
+@keyframes ken-burns {
+    from { transform: scale(1); }
+    to   { transform: scale(1.07); }
+}
+@keyframes scroll-nudge {
+    0%, 100% { transform: translateY(0); opacity: 0.55; }
+    50%      { transform: translateY(7px); opacity: 1; }
+}
+
+/* ============================================================
+   SECȚIUNI — spațiere generoasă, benzi alternante de „linen"
+   ============================================================ */
+section { position: relative; }
+.section { padding: var(--sec-y) 0; }
+
+/* textura de in, pentru benzile alternante */
+.signature-section,
+.process-section,
+.press-section,
+.clients-section,
+.section-linen {
+    background-color: hsl(var(--linen-c));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23c9bfb1' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+/* press + clients sunt lipite → o singură bandă continuă */
+.press-section { padding-bottom: 0; }
+.clients-section { padding-top: clamp(2rem, 4vw, 3rem); }
+
+/* --- capete de secțiune --- */
+.section-head, .lux-section-head {
+    max-width: 62ch;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+.section-head h2, .lux-section-head h2 {
+    font-size: clamp(2.1rem, 5vw, 3.9rem);
+    margin-top: 1.3rem;
+    line-height: 1.03;
+}
+.section-head p, .lux-section-head .sub {
+    margin-top: 1.4rem;
+    font-size: 1rem; line-height: 1.8; font-weight: 300;
+    color: hsl(var(--muted-foreground));
+    max-width: 56ch;
+}
+
+/* secțiuni pe fundal închis */
+.section-dark {
+    background: hsl(var(--charcoal));
+    color: var(--on-dark);
+}
+.section-dark h1, .section-dark h2, .section-dark h3, .section-dark h4 { color: var(--on-dark); }
+.section-dark p, .section-dark .sub, .section-dark .section-head p { color: var(--on-dark-soft); }
+.section-dark em { color: hsl(var(--terracotta-pale)); }
+.section-dark .sec-label,
+.section-dark .eyebrow { color: hsl(var(--terracotta-pale)); }
+
+/* ------------------------------------------------------------
+   Centrare pe părinte, nu pe copii: astfel toate elementele
+   dintr-o secțiune încep de pe aceeași margine, indiferent de
+   măsura lor (un h2 la 20ch se aliniază cu o grilă la 1600px).
+   ------------------------------------------------------------ */
+.intro-brand,
+.divisions-section,
+.featured-section,
+.process-section,
+.testimonials-section,
+.press-section,
+.clients-section,
+.service-hero, .about-hero {
+    padding-inline: max(var(--pad), (100% - var(--maxw)) / 2);
+}
+.intro-brand { padding-inline: max(var(--pad), (100% - var(--maxw-narrow)) / 2); }
+.faq-section { padding-inline: max(var(--pad), (100% - var(--maxw-text)) / 2); }
+
+/* ============================================================
+   INTRO BRAND — declarație editorială
+   ============================================================ */
+.intro-brand { padding-block: var(--sec-y); }
+.intro-brand h2 {
+    font-size: clamp(2.1rem, 5.6vw, 4.2rem);
+    margin: 1.5rem 0 1.8rem;
+    max-width: 20ch;
+    line-height: 1.06;
+}
+.intro-brand p {
+    font-size: clamp(1.02rem, 1.6vw, 1.22rem);
+    line-height: 1.85; font-weight: 300;
+    color: hsl(var(--muted-foreground));
+    max-width: 62ch;
+}
+.intro-brand strong { color: hsl(var(--foreground)); font-weight: 500; }
+
+/* ============================================================
+   LUCRĂRI SEMNĂTURĂ — imagine mare + text, alternat
+   ============================================================ */
+.signature-section { padding-block: var(--sec-y); }
+.signature-list {
+    display: flex; flex-direction: column;
+    gap: clamp(4rem, 9vw, 8rem);
+    max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad);
+}
+.signature-item {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+}
+.signature-img-wrap {
+    grid-column: span 7;
+    border-radius: 0; overflow: hidden;
+    aspect-ratio: 4/3;
+    background: hsl(var(--muted));
+}
+.signature-text { grid-column: span 5; }
+.signature-item.reverse .signature-img-wrap { order: 2; }
+.signature-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.4s var(--ease);
+}
+.signature-item:hover .signature-img-wrap img { transform: scale(1.05); }
+
+.sig-tag, .div-tag, .pf-tag, .sb-tag {
+    display: inline-block;
+    font-size: 0.64rem; font-weight: 600;
+    letter-spacing: 0.26em; text-transform: uppercase;
+    color: hsl(var(--terracotta));
+}
+.signature-text h3 {
+    font-size: clamp(1.9rem, 3.8vw, 3rem);
+    margin: 1.2rem 0 1.3rem;
+    line-height: 1.05;
+}
+.signature-text p {
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; font-size: 1rem; line-height: 1.85;
+}
+.sig-meta {
+    display: flex; gap: clamp(1.5rem, 4vw, 3rem); flex-wrap: wrap;
+    margin: 2.2rem 0;
+    border-top: 1px solid hsl(var(--border-c));
+    padding-top: 1.5rem;
+}
+.sig-meta .label {
+    display: block;
+    font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0.35rem;
+}
+.sig-meta .value {
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 500;
+    color: hsl(var(--foreground));
+}
+
+/* link cu subliniere animată */
+.sig-link, .div-cta {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: hsl(var(--foreground));
+    padding-bottom: 5px;
+    border-bottom: 1px solid hsl(var(--terracotta) / 0.45);
+    transition: color .35s var(--ease), border-color .35s var(--ease);
+}
+.sig-link span, .div-cta span { transition: transform .35s var(--ease); }
+.sig-link:hover, .div-cta:hover { color: hsl(var(--terracotta)); border-color: hsl(var(--terracotta)); }
+.sig-link:hover span { transform: translateX(5px); }
+
+/* ============================================================
+   DIVIZIUNI — grilă asimetrică 12 coloane, overlay + reveal
+   ============================================================ */
+.divisions-section { padding-block: var(--sec-y); }
+.divisions-section > .lux-section-head h2,
+.divisions-section > .lux-section-head .sub { max-width: 30ch; }
+
+.divisions-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(0.9rem, 1.8vw, 1.6rem);
+}
+/* ritm asimetric: 7-5 / 5-7 */
+.division-card:nth-child(4n + 1) { grid-column: span 7; }
+.division-card:nth-child(4n + 2) { grid-column: span 5; }
+.division-card:nth-child(4n + 3) { grid-column: span 5; }
+.division-card:nth-child(4n + 4) { grid-column: span 7; }
+
+.division-card {
+    position: relative; isolation: isolate;
+    min-height: clamp(340px, 40vw, 520px);
+    border-radius: 0; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--on-dark);
+}
+.division-card .div-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-size: cover; background-position: center;
+    transition: transform 1.4s var(--ease);
+}
+.division-card:hover .div-bg { transform: scale(1.08); }
+/* gradient + văl la hover */
+.division-card::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg,
+        hsl(30 10% 6% / 0) 0%,
+        hsl(30 10% 6% / 0.15) 45%,
+        hsl(30 10% 6% / 0.78) 100%);
+    transition: background .7s var(--ease);
+}
+.division-card:hover::after {
+    background: linear-gradient(180deg,
+        hsl(30 10% 6% / 0.18) 0%,
+        hsl(30 10% 6% / 0.35) 45%,
+        hsl(30 10% 6% / 0.85) 100%);
+}
+/* hairline care crește pe muchia de sus */
+.division-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+    height: 2px; background: hsl(var(--background) / 0.5);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .8s var(--ease-out);
+}
+.division-card:hover::before { transform: scaleX(1); }
+
+.div-num {
+    position: absolute; z-index: 2;
+    top: clamp(1.4rem, 2.5vw, 2rem); right: clamp(1.6rem, 3vw, 2.4rem);
+    font-family: var(--serif); font-size: 1.9rem; font-weight: 400;
+    color: hsl(var(--background) / 0.45);
+}
+.div-content { position: relative; z-index: 2; }
+.div-tag { color: hsl(var(--background) / 0.6); }
+.div-content h3 {
+    color: var(--on-dark);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    margin: 0.8rem 0 0.9rem;
+    line-height: 1.05;
+    transform: translateY(0);
+    transition: transform .6s var(--ease);
+}
+.division-card:hover .div-content h3 { transform: translateY(-4px); }
+.div-desc {
+    color: var(--on-dark-soft);
+    font-size: 0.92rem; font-weight: 300; line-height: 1.7;
+    max-width: 40ch;
+    margin-bottom: 1.4rem;
+}
+.division-card .div-cta {
+    color: hsl(var(--background) / 0.92);
+    border-bottom-color: hsl(var(--background) / 0.4);
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .5s var(--ease) .1s, transform .5s var(--ease) .1s, border-color .35s;
+}
+.division-card:hover .div-cta {
+    opacity: 1; transform: translateY(0);
+    color: hsl(var(--background)); border-bottom-color: hsl(var(--background));
+}
+/* pe touch nu există hover — arată CTA-ul din start */
+@media (hover: none) {
+    .division-card .div-cta { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   BLOCURI DE SERVICII — carduri drepte, hairline terracotta
+   ============================================================ */
+.services-list {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(0.9rem, 1.8vw, 1.5rem);
+}
+.service-block, .value-card {
+    position: relative;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: clamp(1.8rem, 3vw, 2.6rem);
+    transition: transform .55s var(--ease), border-color .55s var(--ease), box-shadow .55s var(--ease);
+}
+.service-block::before, .value-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px; background: hsl(var(--terracotta));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .7s var(--ease-out);
+}
+.service-block:hover, .value-card:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--taupe));
+    box-shadow: var(--shadow-sm);
+}
+.service-block:hover::before, .value-card:hover::before { transform: scaleX(1); }
+
+.sb-icon, .v-icon {
+    font-size: 1.35rem; line-height: 1;
+    margin-bottom: 1.4rem;
+    opacity: 0.75;
+}
+.service-block h3, .value-card h4 {
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    margin-bottom: 1rem;
+}
+.service-block p, .value-card p {
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; font-size: 0.94rem; line-height: 1.8;
+}
+.section-dark .service-block, .section-dark .value-card {
+    background: hsl(var(--background) / 0.04);
+    border-color: hsl(var(--background) / 0.14);
+}
+.section-dark .service-block p, .section-dark .value-card p { color: var(--on-dark-soft); }
+
+/* ============================================================
+   PORTOFOLIU — listă editorială (imagine + număr + titlu)
+   ============================================================ */
+.featured-section { padding-block: var(--sec-y); }
+/* .section-header își aduce propriul padding — anulează-l aici,
+   secțiunea îl asigură deja */
+.featured-section > .section-header,
+.featured-section > .portfolio-grid { padding-inline: 0; max-width: none; }
+
+.portfolio-grid {
+    display: flex; flex-direction: column; gap: 0;
+    counter-reset: work;
+}
+.portfolio-item {
+    counter-increment: work;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    background: transparent;
+    border-radius: 0;
+    border-top: 1px solid hsl(var(--border-c));
+    padding: clamp(1.8rem, 4vw, 3.2rem) 0;
+    overflow: visible;
+}
+.portfolio-item:last-child { border-bottom: 1px solid hsl(var(--border-c)); }
+.portfolio-item img {
+    width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
+    border-radius: 0;
+    transition: transform 1.3s var(--ease);
+}
+.portfolio-item:hover img { transform: scale(1.04); }
+
+.pf-overlay {
+    position: relative; inset: auto;
+    background: none; padding: 0 3.5rem 0 0;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem;
+    color: hsl(var(--foreground));
+}
+.pf-overlay::before {
+    content: counter(work, decimal-leading-zero);
+    order: 0;
+    font-family: var(--serif); font-size: 0.95rem; font-weight: 500;
+    color: hsl(var(--terracotta)); letter-spacing: 0.14em;
+}
+.pf-overlay h4 {
+    order: 1; color: hsl(var(--foreground));
+    font-size: clamp(1.7rem, 3.6vw, 2.9rem);
+    line-height: 1.04; margin: 0;
+    transition: color .4s var(--ease);
+}
+.pf-overlay .pf-tag { order: 2; }
+.pf-overlay::after {
+    content: "↗";
+    position: absolute; top: 0; right: 0;
+    width: 46px; height: 46px;
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    display: grid; place-items: center;
+    font-family: var(--sans); font-size: 1.05rem;
+    color: hsl(var(--foreground));
+    transition: transform .4s var(--ease), background .4s var(--ease),
+                color .4s var(--ease), border-color .4s var(--ease);
+}
+.portfolio-item:has(.pf-detail) { cursor: pointer; }
+.portfolio-item:hover .pf-overlay h4 { color: hsl(var(--terracotta)); }
+.portfolio-item:hover .pf-overlay::after {
+    background: hsl(var(--foreground)); color: hsl(var(--background));
+    border-color: hsl(var(--foreground));
+    transform: translate(3px, -3px);
+}
+
+/* panou de detalii care se desfășoară la click */
+.pf-detail {
+    grid-column: 1 / -1;
+    max-height: 0; overflow: hidden;
+    transition: max-height .55s var(--ease);
+}
+.pf-detail p {
+    padding-top: 1.8rem; margin-top: 1.8rem;
+    border-top: 1px solid hsl(var(--border-c));
+    max-width: 70ch;
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; font-size: 1rem; line-height: 1.85;
+}
+.portfolio-item.open .pf-overlay h4 { color: hsl(var(--terracotta)); }
+.portfolio-item.open .pf-overlay::after {
+    transform: rotate(90deg);
+    background: hsl(var(--terracotta)); color: hsl(var(--background));
+    border-color: hsl(var(--terracotta));
+}
+
+/* ============================================================
+   WORK LIST — rânduri cu preview flotant sub cursor
+   ============================================================ */
+.work-list { list-style: none; margin: 0; padding: 0; counter-reset: work; }
+.work-list li { display: block; }
+
+.work-row {
+    counter-increment: work;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    grid-template-areas: "num name cat year arrow";
+    align-items: center;
+    column-gap: clamp(1rem, 3vw, 3.5rem);
+    row-gap: 0.35rem;
+    padding: clamp(1.5rem, 3.2vw, 2.6rem) 0;
+    border-top: 1px solid hsl(var(--border-c));
+    color: hsl(var(--foreground));
+    transition: opacity .45s var(--ease);
+}
+.work-list li:last-child .work-row { border-bottom: 1px solid hsl(var(--border-c)); }
+
+/* la hover pe listă, rândurile neselectate se estompează */
+.work-list:hover .work-row { opacity: 0.35; }
+.work-list .work-row:hover { opacity: 1; }
+
+.work-num {
+    grid-area: num;
+    font-family: var(--serif); font-size: 0.92rem; font-weight: 500;
+    color: hsl(var(--terracotta)); letter-spacing: 0.14em;
+    font-variant-numeric: tabular-nums;
+}
+.work-num::before { content: counter(work, decimal-leading-zero); }
+
+.work-name {
+    grid-area: name;
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(1.8rem, 4.6vw, 3.3rem);
+    line-height: 1.02; letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+    transition: transform .5s var(--ease), color .5s var(--ease);
+}
+.work-row:hover .work-name {
+    color: hsl(var(--terracotta));
+    transform: translateX(0.7rem);
+}
+.work-cat {
+    grid-area: cat;
+    font-size: 0.64rem; font-weight: 500;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground)); white-space: nowrap;
+}
+.work-year {
+    grid-area: year;
+    font-size: 0.78rem; letter-spacing: 0.12em;
+    color: hsl(var(--muted-foreground));
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.work-arrow {
+    grid-area: arrow;
+    width: 44px; height: 44px;
+    border: 1px solid hsl(var(--border-c)); border-radius: 0;
+    display: grid; place-items: center;
+    font-size: 1.05rem; color: hsl(var(--foreground));
+    transition: transform .4s var(--ease), background .4s var(--ease),
+                color .4s var(--ease), border-color .4s var(--ease);
+}
+.work-row:hover .work-arrow {
+    background: hsl(var(--foreground)); color: hsl(var(--background));
+    border-color: hsl(var(--foreground));
+    transform: translate(3px, -3px);
+}
+
+/* imaginea flotantă care urmărește cursorul */
+.work-preview {
+    position: fixed; top: 0; left: 0; z-index: 70;
+    width: clamp(260px, 26vw, 390px); aspect-ratio: 16 / 11;
+    border-radius: 0; overflow: hidden;
+    pointer-events: none; opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+    box-shadow: var(--shadow);
+    will-change: transform, opacity;
+    transition: opacity .45s var(--ease);
+}
+.work-preview.is-visible { opacity: 1; }
+.work-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats-strip {
+    max-width: var(--maxw); margin-inline: auto;
+    padding: clamp(2.5rem, 5vw, 4rem) var(--pad);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.stat-item {
+    border-left: none;
+    border-top: 1px solid hsl(var(--border-c));
+    padding: 1.4rem 0 0;
+}
+.stat-value {
+    display: block;
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    line-height: 1;
+    color: hsl(var(--foreground));
+}
+.stat-label {
+    display: block; margin-top: 0.7rem;
+    font-size: 0.64rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+}
+.section-dark .stat-value { color: var(--on-dark); }
+.section-dark .stat-label { color: var(--on-dark-faint); }
+.section-dark .stat-item { border-top-color: hsl(var(--background) / 0.18); }
+
+/* ============================================================
+   PROCES — pași numerotați
+   ============================================================ */
+.process-section { padding-block: var(--sec-y); }
+.process-section > .section-eyebrow { display: inline-flex; margin-bottom: 1.3rem; }
+.process-section > h2 {
+    font-size: clamp(2.1rem, 5vw, 3.9rem);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    max-width: 20ch;
+}
+.process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.process-step {
+    border-top: 1px solid hsl(var(--border-c));
+    padding-top: 1.6rem;
+}
+.step-num {
+    font-family: var(--serif); font-size: 1rem; font-weight: 500;
+    color: hsl(var(--terracotta));
+    display: inline-block; margin-bottom: 1.4rem;
+    letter-spacing: 0.08em;
+}
+.step-num::before { content: "0"; }
+.step-num::after {
+    content: " / 04";
+    color: hsl(var(--muted-foreground)); font-size: 0.78rem;
+}
+.process-step h4 { font-size: clamp(1.2rem, 1.9vw, 1.5rem); margin-bottom: 0.9rem; }
+.process-step p {
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; font-size: 0.92rem; line-height: 1.8;
+}
+
+/* ============================================================
+   MĂRTURII — citate editoriale
+   ============================================================ */
+.testimonials-section { padding-block: var(--sec-y); }
+.testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.9rem, 1.8vw, 1.5rem);
+}
+.testimonial-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: clamp(1.8rem, 3vw, 2.6rem);
+    display: flex; flex-direction: column;
+}
+.quote-mark {
+    font-family: var(--serif); font-size: 3.4rem; font-weight: 500;
+    color: hsl(var(--terracotta) / 0.35);
+    line-height: 0.6; height: 1.5rem;
+}
+.stars {
+    color: hsl(var(--terracotta));
+    letter-spacing: 3px; font-size: 0.75rem;
+    margin: 0.6rem 0 1.4rem;
+}
+.testimonial-card p {
+    flex: 1;
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.05rem, 1.6vw, 1.22rem); line-height: 1.6;
+    color: hsl(var(--foreground) / 0.86);
+}
+.author {
+    display: flex; align-items: center; gap: 0.9rem;
+    margin-top: 1.8rem; padding-top: 1.5rem;
+    border-top: 1px solid hsl(var(--border-c));
+}
+.author-avatar {
+    width: 42px; height: 42px; border-radius: 0;
+    background: hsl(var(--terracotta)); color: hsl(var(--background));
+    display: grid; place-items: center;
+    font-family: var(--serif); font-size: 1.15rem; font-weight: 500;
+    flex: 0 0 auto;
+}
+.author-name {
+    display: block; font-weight: 500; font-size: 0.9rem;
+    color: hsl(var(--foreground));
+}
+.author-role {
+    display: block; font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: hsl(var(--muted-foreground));
+}
+
+/* ============================================================
+   PRESĂ / CLIENȚI
+   ============================================================ */
+.press-section, .clients-section { padding-block: var(--sec-y); }
+.press-section { text-align: center; }
+.press-eyebrow {
+    display: block; margin-bottom: 2rem;
+    color: hsl(var(--muted-foreground));
+}
+.press-eyebrow::before { display: none; }
+.press-row {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: clamp(1.5rem, 5vw, 4rem); align-items: center;
+}
+.press-logo {
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    opacity: 0.6;
+    transition: opacity .4s var(--ease), color .4s var(--ease);
+}
+.press-logo em { color: hsl(var(--terracotta)); }
+.press-logo:hover { opacity: 1; color: hsl(var(--foreground)); }
+
+.clients-cat { margin-top: 2.2rem; }
+.clients-cat:first-of-type { margin-top: 0; }
+.clients-cat-label {
+    display: block; margin-bottom: 1rem;
+    color: hsl(var(--terracotta));
+}
+.clients-grid {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: clamp(0.6rem, 1.2vw, 1rem);
+}
+.client-logo {
+    flex: 0 0 auto;
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: 18px 26px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+}
+.client-logo img {
+    height: 42px; width: auto; max-width: 230px;
+    object-fit: contain; display: block;
+    filter: grayscale(1); opacity: 0.62;
+    transition: filter .45s var(--ease), opacity .45s var(--ease);
+}
+.client-logo:hover {
+    transform: translateY(-3px);
+    border-color: hsl(var(--taupe));
+    box-shadow: var(--shadow-sm);
+}
+.client-logo:hover img { filter: grayscale(0); opacity: 1; }
+
+/* ============================================================
+   CTA MARE — imagine full-bleed + văl charcoal
+   ============================================================ */
+.cta-big {
+    position: relative; overflow: hidden;
+    padding: clamp(5rem, 12vw, 10rem) var(--pad);
+    text-align: center;
+    background: hsl(var(--charcoal));
+    color: var(--on-dark);
+}
+.cta-big::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background-image: url('images/atrium-industrial.webp');
+    background-size: cover; background-position: center;
+}
+.cta-big::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: hsl(30 10% 8% / 0.72);
+}
+.cta-big > * { position: relative; z-index: 2; }
+.cta-big .cta-eyebrow {
+    color: var(--on-dark-faint);
+    justify-content: center; display: inline-flex;
+    margin-bottom: 1.6rem;
+}
+.cta-big .cta-eyebrow::before { background: hsl(var(--background) / 0.4); }
+.cta-big h2 {
+    color: var(--on-dark);
+    font-size: clamp(2.3rem, 6.4vw, 4.8rem);
+    line-height: 1.02;
+    max-width: 24ch;
+    margin: 0 auto 1.6rem;
+}
+.cta-big h2 em { color: hsl(var(--terracotta-pale)); }
+.cta-big p {
+    max-width: 54ch; margin: 0 auto 2.6rem;
+    color: var(--on-dark-soft);
+    font-weight: 300; line-height: 1.8;
+}
+.cta-big .cta-actions { justify-content: center; margin-top: 0; }
+.cta-big .hero-btn {
+    background: hsl(var(--background)); color: hsl(var(--charcoal));
+    border-color: hsl(var(--background));
+}
+.cta-big .hero-btn::before { background: hsl(var(--charcoal) / 0.08); }
+.cta-big .hero-btn:hover {
+    background: hsl(var(--terracotta)); color: hsl(var(--background));
+    border-color: hsl(var(--terracotta));
+}
+.cta-big .hero-btn-outline {
+    background: transparent; color: var(--on-dark);
+    border-color: hsl(var(--background) / 0.3);
+}
+.cta-big .hero-btn-outline:hover {
+    background: hsl(var(--background)); color: hsl(var(--charcoal));
+    border-color: hsl(var(--background));
+}
+
+/* ============================================================
+   BREADCRUMB — bară subțire sub header
+   ============================================================ */
+.cart-breadcrumb {
+    max-width: var(--maxw); margin-inline: auto;
+    padding: clamp(6rem, 11vw, 7.5rem) var(--pad) 1.3rem;
+    display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;
+    font-size: 0.74rem; font-weight: 500;
+    letter-spacing: 0.06em;
+    color: hsl(var(--muted-foreground));
+    border-bottom: 1px solid hsl(var(--border-c));
+}
+.cart-breadcrumb a {
+    color: hsl(var(--muted-foreground));
+    transition: color .3s var(--ease);
+}
+.cart-breadcrumb a:hover { color: hsl(var(--foreground)); }
+.cart-breadcrumb span { color: hsl(var(--taupe)); }
+.cart-breadcrumb span:last-child { color: hsl(var(--foreground)); }
+
+/* ============================================================
+   HERO PAGINI INTERIOARE — banner cu imagine, text jos
+   ============================================================ */
+.service-hero, .about-hero {
+    position: relative; overflow: hidden;
+    min-height: clamp(320px, 46vh, 540px);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-block: clamp(3rem, 8vw, 5rem) clamp(2.5rem, 5vw, 4rem);
+    background: hsl(var(--charcoal));
+    color: var(--on-dark);
+}
+/* imaginea implicită — se suprascrie per pagină, mai jos */
+.service-hero::before, .about-hero::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background-image: url('images/structura-acoperis-metal.webp');
+    background-size: cover; background-position: center;
+}
+.service-hero::after, .about-hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg,
+        hsl(30 10% 6% / 0.28) 0%,
+        hsl(30 10% 6% / 0.42) 50%,
+        hsl(30 10% 6% / 0.78) 100%);
+}
+.service-hero > *, .about-hero > * { position: relative; z-index: 2; }
+.service-hero .service-eyebrow, .about-hero .about-eyebrow {
+    color: var(--on-dark-soft);
+}
+.service-hero .service-eyebrow::before, .about-hero .about-eyebrow::before {
+    background: hsl(var(--terracotta-pale));
+}
+.service-hero h1, .about-hero h1 {
+    font-size: clamp(2.6rem, 7vw, 5.6rem);
+    margin: 1.3rem 0 1.4rem;
+    max-width: 18ch;
+    line-height: 0.98;
+    color: var(--on-dark);
+}
+.service-hero h1 em, .about-hero h1 em {
+    color: hsl(var(--terracotta-pale)); font-style: italic;
+}
+.service-hero > p, .about-hero > p {
+    max-width: 58ch;
+    color: var(--on-dark-soft);
+    font-size: clamp(0.96rem, 1.4vw, 1.12rem);
+    line-height: 1.8; font-weight: 300;
+}
+.service-hero .lux-ornament, .about-hero .lux-ornament {
+    color: hsl(var(--background));
+    margin: 1.3rem 0 1.6rem;
+}
+
+/* --- imaginea de banner per pagină --- */
+body.page-confectii   .service-hero::before { background-image: url('images/fatada-rezidentiala.webp'); }
+body.page-amenajari   .service-hero::before { background-image: url('images/scara-curba.webp'); }
+body.page-industriale .service-hero::before { background-image: url('images/atrium-industrial.webp'); }
+body.page-militare    .service-hero::before { background-image: url('images/cabina-dormit-modulara.webp'); }
+body.page-cariere     .service-hero::before { background-image: url('images/structura-scara-fabricatie.webp'); }
+body.page-aplica      .service-hero::before { background-image: url('images/structura-scara-fabricatie.webp'); }
+body.page-despre      .about-hero::before   { background-image: url('images/casa-scarii-spirala.webp'); }
+body.page-contact     .about-hero::before   { background-image: url('images/receptie-bar-metal.webp'); }
+body.page-oferta      .about-hero::before   { background-image: url('images/scara-curba-intrados.webp'); }
+body.page-plata       .about-hero::before   { background-image: url('images/placare-perforata-aurie.webp'); }
+/* paginile de plată: banner mai scund, tranzacțional */
+body.page-plata .about-hero { min-height: clamp(220px, 30vh, 340px); }
+
+/* --- capete de secțiune pe paginile interioare --- */
+.section-header {
+    display: flex; flex-direction: column; gap: 0.9rem;
+    margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+    max-width: var(--maxw);
+    padding-inline: var(--pad);
+}
+.section-title { font-size: clamp(1.9rem, 4.4vw, 3.2rem); line-height: 1.04; }
+.section-sub {
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; font-size: 1rem; line-height: 1.8;
+    max-width: 56ch;
+}
+section > .services-list,
+section > .portfolio-grid {
+    max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad);
+}
+/* secțiunile „fără clasă" (ex. blocurile de servicii) primesc ritm vertical */
+main > section:not([class]) { padding-block: clamp(3rem, 7vw, 6rem); }
+main > section:not([class]) > .lux-section-head {
+    max-width: var(--maxw); width: 100%; box-sizing: border-box;
+    margin-inline: auto;
+    padding-inline: var(--pad);
+}
+
+/* ============================================================
+   DESPRE — grile imagine/text
+   ============================================================ */
+.about-grid {
+    max-width: var(--maxw); margin-inline: auto;
+    padding: clamp(3rem, 7vw, 6rem) var(--pad);
+    display: grid; grid-template-columns: repeat(12, 1fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+}
+.about-text { grid-column: span 5; }
+.about-img  { grid-column: span 7; }
+.about-grid.reverse .about-text { order: 2; }
+.about-text h3 {
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    margin-bottom: 1.4rem; line-height: 1.05;
+}
+.about-text p {
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; line-height: 1.85;
+    margin-bottom: 1.2rem;
+}
+.about-img {
+    border-radius: 0; overflow: hidden; aspect-ratio: 4/3;
+    background: hsl(var(--muted));
+}
+.about-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.4s var(--ease);
+}
+.about-grid:hover .about-img img { transform: scale(1.04); }
+
+.values-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.9rem, 1.8vw, 1.5rem);
+    max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad);
+}
+
+/* ============================================================
+   PREZENTAREA GRUPULUI (despre-noi)
+   ============================================================ */
+.group-section {
+    max-width: var(--maxw); margin: 0 auto clamp(2rem, 4vw, 3rem);
+    padding-inline: var(--pad);
+}
+.group-lead {
+    max-width: 62ch; margin: 1.2rem auto 0;
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; line-height: 1.85;
+}
+.group-overview {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2.5vw, 2rem);
+    margin: clamp(2rem, 4vw, 3rem) 0;
+    background: hsl(var(--linen-c));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: clamp(1.8rem, 3.5vw, 2.8rem);
+}
+.go-item { text-align: center; border-right: 1px solid hsl(var(--border-c)); }
+.go-item:last-child { border-right: none; }
+.go-value {
+    display: block;
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1;
+    color: hsl(var(--foreground));
+}
+.go-label {
+    display: block; margin-top: 0.7rem;
+    font-size: 0.62rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+}
+
+.entities-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(0.9rem, 1.8vw, 1.5rem);
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.entity-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: clamp(1.6rem, 2.8vw, 2.2rem);
+    transition: transform .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+}
+.entity-card:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--taupe));
+    box-shadow: var(--shadow-sm);
+}
+.ec-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; margin-bottom: 0.9rem;
+}
+.ec-head h3 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+.ec-count {
+    font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: hsl(var(--terracotta)); white-space: nowrap;
+}
+.ec-activity {
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; line-height: 1.8; margin-bottom: 1.2rem;
+    font-size: 0.94rem;
+}
+.ec-loc {
+    display: inline-block;
+    font-size: 0.78rem; color: hsl(var(--muted-foreground));
+    border-top: 1px solid hsl(var(--border-c));
+    padding-top: 0.9rem;
+}
+
+.group-cols {
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+}
+.gc-title {
+    font-family: var(--serif); font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    margin-bottom: 1.4rem;
+    color: hsl(var(--foreground));
+}
+.timeline { list-style: none; }
+.timeline li {
+    display: flex; gap: 1.2rem;
+    padding: 0.85rem 0 0.85rem 1.3rem;
+    border-left: 1px solid hsl(var(--terracotta) / 0.35);
+}
+.tl-year {
+    font-family: var(--serif); font-weight: 500;
+    color: hsl(var(--terracotta)); font-size: 1.15rem;
+    min-width: 3.4rem;
+}
+.tl-text { color: hsl(var(--muted-foreground)); font-weight: 300; line-height: 1.75; }
+.team-list { list-style: none; }
+.team-list li {
+    display: flex; align-items: baseline; gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid hsl(var(--border-c));
+    color: hsl(var(--muted-foreground)); font-weight: 300;
+}
+.team-n {
+    font-family: var(--serif); font-weight: 500;
+    color: hsl(var(--foreground)); font-size: 1.3rem;
+    min-width: 2.4rem;
+}
+
+/* ============================================================
+   CARIERE — carduri de job
+   ============================================================ */
+.job-card { display: flex; flex-direction: column; }
+.job-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 1rem; margin-bottom: 0.9rem;
+}
+.job-head h3 { margin-top: 0.4rem; }
+.job-tag {
+    display: block;
+    font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: hsl(var(--terracotta));
+}
+.job-location {
+    flex: 0 0 auto;
+    font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    background: transparent;
+    border: 1px solid hsl(var(--border-c));
+    padding: 0.4rem 0.7rem; border-radius: 0;
+}
+.job-card .sig-link { align-self: flex-start; margin-top: 1.4rem; }
+
+/* ============================================================
+   CONTACT & FORMULARE
+   ============================================================ */
+.contact-layout {
+    max-width: var(--maxw); margin-inline: auto;
+    padding: clamp(2.5rem, 5vw, 4.5rem) var(--pad) clamp(4rem, 9vw, 7.5rem);
+    display: grid; grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+}
+.contact-info h2, .contact-form-card h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    margin-bottom: 2rem;
+}
+
+/* harta sediu (Leaflet) */
+.map-placeholder {
+    background: hsl(var(--linen-c));
+    height: 300px;
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    margin-top: 2rem; position: relative; overflow: hidden;
+}
+.map-placeholder #tib-map { width: 100%; height: 100%; }
+.map-placeholder .leaflet-container {
+    background: hsl(var(--linen-c));
+    font-family: var(--sans);
+}
+.tib-highlight-circle {
+    animation: mapPulse 2s infinite;
+    transform-origin: center; transform-box: fill-box;
+}
+@keyframes mapPulse {
+    0%   { stroke-opacity: 1; stroke-width: 3; }
+    70%  { stroke-opacity: 0; stroke-width: 18; }
+    100% { stroke-opacity: 0; stroke-width: 3; }
+}
+
+.info-row { display: flex; gap: 1.2rem; align-items: flex-start; margin-bottom: 1.8rem; }
+.info-icon {
+    flex: 0 0 auto; width: 44px; height: 44px;
+    border-radius: 0;
+    background: transparent;
+    border: 1px solid hsl(var(--border-c));
+    display: grid; place-items: center;
+    color: hsl(var(--terracotta));
+}
+.info-icon svg { width: 18px; height: 18px; }
+.info-text strong {
+    display: block;
+    font-size: 0.62rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0.4rem;
+}
+.info-text a, .info-text p, .info-text span {
+    color: hsl(var(--foreground));
+    font-weight: 400; font-size: 1rem;
+}
+.info-text a { transition: color .3s var(--ease); }
+.info-text a:hover { color: hsl(var(--terracotta)); }
+
+.contact-form-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: clamp(1.8rem, 3.2vw, 3rem);
+    box-shadow: none;
+}
+.cart-form { display: flex; flex-direction: column; gap: 1.4rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.cart-form label {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    font-size: 0.62rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+}
+.cart-form label.full { grid-column: 1 / -1; }
+.cart-form input, .cart-form textarea, .cart-form select {
+    font-family: var(--sans);
+    font-size: 0.95rem; font-weight: 400;
+    letter-spacing: normal; text-transform: none;
+    color: hsl(var(--foreground));
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: 0.9rem 1rem;
+    width: 100%;
+    transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.cart-form input::placeholder, .cart-form textarea::placeholder {
+    color: hsl(var(--muted-foreground) / 0.7); font-weight: 300;
+}
+.cart-form input:focus, .cart-form textarea:focus, .cart-form select:focus {
+    outline: none;
+    border-color: hsl(var(--terracotta));
+    box-shadow: 0 0 0 3px hsl(var(--terracotta) / 0.1);
+}
+.cart-form textarea { resize: vertical; min-height: 130px; line-height: 1.7; }
+.contact-submit { align-self: flex-start; margin-top: 0.6rem; }
+.voucher-msg { font-size: 0.86rem; font-weight: 500; }
+.voucher-msg.ok  { color: hsl(140 40% 32%); }
+.voucher-msg.err { color: hsl(2 62% 45%); }
+
+/* ---- CV drag & drop ---- */
+.cart-form .full > .field-label {
+    display: block;
+    font-size: 0.62rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0.6rem;
+}
+.cart-form .full > .field-label em {
+    color: hsl(var(--terracotta)); font-style: normal; font-family: var(--sans);
+}
+.cv-dropzone {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; cursor: pointer; user-select: none;
+    background: hsl(var(--background));
+    border: 1px dashed hsl(var(--taupe));
+    border-radius: 0;
+    padding: 1.1rem 1rem;
+    transition: border-color .3s, background .3s, box-shadow .3s, transform .15s;
+}
+.cv-dropzone:hover, .cv-dropzone:focus-visible {
+    border-color: hsl(var(--terracotta));
+    background: hsl(var(--accent) / 0.5);
+    outline: none;
+}
+.cv-dropzone.is-dragover {
+    border-color: hsl(var(--terracotta)); border-style: solid;
+    background: hsl(var(--accent));
+    box-shadow: inset 0 0 0 3px hsl(var(--terracotta) / 0.15);
+}
+.cv-dropzone.has-file {
+    cursor: default; border-style: solid;
+    border-color: hsl(var(--border-c));
+}
+.cv-dz-empty {
+    display: flex; flex-direction: row; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 0.25rem 0.55rem; pointer-events: none;
+}
+.cv-dz-icon { width: 20px; height: 20px; color: hsl(var(--terracotta)); flex-shrink: 0; }
+.cv-dz-title {
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: none;
+    color: hsl(var(--foreground));
+}
+.cv-dz-sub { font-size: 0.82rem; font-weight: 400; color: hsl(var(--muted-foreground)); text-transform: none; letter-spacing: normal; }
+.cv-dz-browse {
+    color: hsl(var(--terracotta)); font-weight: 600;
+    text-decoration: underline; text-underline-offset: 3px;
+}
+.cv-dz-hint {
+    flex-basis: 100%;
+    font-size: 0.7rem; font-weight: 400;
+    letter-spacing: normal; text-transform: none;
+    color: hsl(var(--muted-foreground)); opacity: 0.85;
+    margin-top: 0.25rem;
+}
+.cv-dz-file { display: flex; align-items: center; gap: 1rem; width: 100%; text-align: left; }
+.cv-file-icon { width: 24px; height: 24px; color: hsl(var(--terracotta)); flex-shrink: 0; }
+.cv-file-meta { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; flex: 1; }
+.cv-file-name {
+    font-size: 0.88rem; font-weight: 600;
+    letter-spacing: normal; text-transform: none;
+    color: hsl(var(--foreground));
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cv-file-size {
+    font-size: 0.72rem; font-weight: 400;
+    letter-spacing: normal; text-transform: none;
+    color: hsl(var(--muted-foreground));
+}
+.cv-file-remove {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 0;
+    border: 1px solid hsl(var(--border-c));
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-size: 0.8rem; line-height: 1; cursor: pointer;
+    transition: background .25s, color .25s, border-color .25s;
+}
+.cv-file-remove:hover {
+    background: hsl(var(--foreground)); color: hsl(var(--background));
+    border-color: hsl(var(--foreground));
+}
+.cv-dz-error {
+    margin-top: 0.5rem;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: normal; text-transform: none;
+    color: hsl(2 62% 45%);
+}
+
+/* lista de fișiere atașate */
+.att-list {
+    list-style: none; margin: 0.7rem 0 0; padding: 0;
+    display: flex; flex-direction: column; gap: 0.5rem;
+}
+.att-item {
+    display: flex; align-items: center; gap: 0.9rem;
+    background: hsl(var(--linen-c));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.85rem;
+    letter-spacing: normal; text-transform: none;
+    color: hsl(var(--foreground));
+}
+
+/* modal de succes */
+.order-modal {
+    position: fixed; inset: 0; z-index: 2000;
+    display: grid; place-items: center;
+    background: hsl(30 10% 8% / 0.6);
+    backdrop-filter: blur(6px);
+    padding: 1.5rem;
+}
+.order-modal[hidden] { display: none; }
+.order-modal-card {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    padding: clamp(2rem, 4vw, 3rem);
+    text-align: center; max-width: 440px;
+    box-shadow: var(--shadow);
+}
+.order-check {
+    width: 60px; height: 60px; border-radius: 0;
+    background: hsl(var(--terracotta)); color: hsl(var(--background));
+    display: grid; place-items: center;
+    font-size: 1.7rem; margin: 0 auto 1.6rem;
+}
+.order-modal-card h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: 1rem; }
+.order-modal-card p {
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; line-height: 1.8; margin-bottom: 1.8rem;
+}
+.order-modal-actions { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+.order-modal-btn { padding: 0.95rem 1.6rem; }
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-section { padding-block: var(--sec-y); }
+.faq-item { border-bottom: 1px solid hsl(var(--border-c)); }
+.faq-item:first-child { border-top: 1px solid hsl(var(--border-c)); }
+.faq-q {
+    width: 100%; background: none; border: none; cursor: pointer; text-align: left;
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: 1.7rem 0;
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+    line-height: 1.25;
+    color: hsl(var(--foreground));
+    transition: color .35s var(--ease);
+}
+.faq-q:hover { color: hsl(var(--terracotta)); }
+.faq-q .plus {
+    flex: 0 0 auto; width: 24px; height: 24px;
+    position: relative; transition: transform .35s var(--ease);
+}
+.faq-q .plus::before, .faq-q .plus::after {
+    content: ""; position: absolute; inset: 0; margin: auto;
+    background: hsl(var(--terracotta));
+}
+.faq-q .plus::before { width: 14px; height: 1px; }
+.faq-q .plus::after  { width: 1px; height: 14px; transition: transform .35s var(--ease); }
+.faq-item.open .plus::after { transform: rotate(90deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .45s var(--ease); }
+.faq-a p {
+    padding-bottom: 1.8rem;
+    color: hsl(var(--muted-foreground));
+    font-weight: 300; line-height: 1.85;
+    max-width: 68ch;
+}
+.faq-a a { color: hsl(var(--terracotta)); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   PLĂȚI — sumar, date bancare, cod
+   ============================================================ */
+.pay-summary, .pay-bank {
+    border: 1px solid hsl(var(--border-c));
+    border-radius: 0;
+    background: hsl(var(--linen-c));
+    padding: 1.4rem 1.6rem;
+    margin-top: 1.4rem;
+}
+.pay-bank { background: hsl(var(--card)); }
+.pay-bank-title {
+    font-family: var(--serif); font-size: 1.2rem; font-weight: 500;
+    margin-bottom: 0.9rem;
+    color: hsl(var(--foreground));
+}
+.pay-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1rem; padding: 0.6rem 0;
+    border-bottom: 1px solid hsl(var(--border-c) / 0.7);
+    font-size: 0.92rem;
+}
+.pay-row:last-child { border-bottom: none; }
+.pay-row > span { color: hsl(var(--muted-foreground)); font-weight: 400; }
+.pay-row > strong { color: hsl(var(--foreground)); font-weight: 600; text-align: right; }
+.pay-row-hl {
+    margin-top: 0.4rem; padding-top: 0.9rem;
+    border-top: 1px solid hsl(var(--terracotta));
+    border-bottom: none;
+}
+.pay-row-hl > span { color: hsl(var(--foreground)); }
+.pay-row-hl > strong {
+    color: hsl(var(--terracotta));
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 500;
+}
+.pay-note {
+    margin-top: 1rem;
+    font-size: 0.8rem; font-weight: 400; line-height: 1.7;
+    color: hsl(var(--muted-foreground));
+}
+.code-box {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: clamp(1.3rem, 5vw, 1.9rem);
+    font-weight: 600; letter-spacing: 0.14em;
+    color: hsl(var(--foreground));
+    background: hsl(var(--linen-c));
+    border: 1px dashed hsl(var(--terracotta));
+    border-radius: 0;
+    padding: 1rem;
+    margin: 0 0 1rem;
+    word-break: break-all;
+}
+.code-hint {
+    font-size: 0.84rem; line-height: 1.7;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 1.6rem;
+}
+
+/* tabel oferte (admin) */
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.admin-table th, .admin-table td {
+    text-align: left; padding: 0.75rem 0.8rem;
+    border-bottom: 1px solid hsl(var(--border-c));
+    white-space: nowrap;
+}
+.admin-table td { color: hsl(var(--foreground)); }
+.admin-table th {
+    color: hsl(var(--muted-foreground));
+    font-weight: 600; text-transform: uppercase;
+    font-size: 0.64rem; letter-spacing: 0.16em;
+}
+.admin-table tbody tr:hover { background: hsl(var(--accent) / 0.6); }
+.admin-table a { color: hsl(var(--terracotta)); font-weight: 500; }
+
+/* ============================================================
+   FOOTER — charcoal, coloane, hairlines
+   ============================================================ */
+footer {
+    background: hsl(var(--charcoal));
+    color: var(--on-dark);
+    padding: clamp(4rem, 8vw, 7rem) 0 2rem;
+}
+.footer-inner {
+    max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad);
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+}
+.footer-brand .brand-text { color: var(--on-dark); font-size: 1.7rem; }
+.footer-brand .brand-text span { color: hsl(var(--terracotta-pale)); }
+.footer-brand p {
+    margin-top: 1.4rem;
+    color: var(--on-dark-faint);
+    font-weight: 300; font-size: 0.92rem; line-height: 1.8;
+    max-width: 38ch;
+}
+.footer-links { display: flex; flex-direction: column; gap: 0.85rem; }
+.footer-links strong, .footer-social-col strong {
+    font-family: var(--sans);
+    font-size: 0.62rem; font-weight: 600;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--on-dark-faint);
+    margin-bottom: 0.6rem;
+}
+.footer-links a {
+    color: hsl(var(--background) / 0.62);
+    font-size: 0.88rem;
+    transition: color .3s var(--ease);
+}
+.footer-links a:hover { color: var(--on-dark); }
+.footer-social { display: flex; gap: 0.6rem; margin-top: 0.5rem; }
+.footer-social a {
+    width: 38px; height: 38px; border-radius: 0;
+    border: 1px solid hsl(var(--background) / 0.18);
+    display: grid; place-items: center;
+    transition: background .35s var(--ease), border-color .35s var(--ease);
+}
+.footer-social a:hover {
+    background: hsl(var(--terracotta));
+    border-color: hsl(var(--terracotta));
+}
+.social-icon { width: 16px; height: 16px; }
+.footer-bottom {
+    max-width: var(--maxw); margin: clamp(3rem, 5vw, 4rem) auto 0;
+    padding: 1.8rem var(--pad) 0;
+    border-top: 1px solid hsl(var(--background) / 0.12);
+}
+.footer-bottom p {
+    color: hsl(var(--background) / 0.35);
+    font-size: 0.78rem; letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   BACK TO TOP  (script.js creează .back-to-top)
+   ============================================================ */
+.back-to-top, #backToTop {
+    position: fixed; bottom: 1.6rem; right: 1.6rem; z-index: 900;
+    width: 44px; height: 44px; border-radius: 0; border: none; cursor: pointer;
+    background: hsl(var(--foreground)); color: hsl(var(--background));
+    font-size: 1rem;
+    opacity: 0; transform: translateY(12px); pointer-events: none;
+    transition: opacity .35s var(--ease), transform .35s var(--ease), background .35s var(--ease);
+}
+.back-to-top.show, #backToTop.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover, #backToTop:hover { background: hsl(var(--terracotta)); }
+
+/* ============================================================
+   REVEAL (script.js adaugă .reveal / .in-view)
+   ============================================================ */
+.reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+.reveal.in-view { opacity: 1; transform: none; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1200px) {
+    .divisions-grid { grid-template-columns: repeat(2, 1fr); }
+    .division-card:nth-child(n) { grid-column: span 1; }
+    .footer-inner { grid-template-columns: 1.4fr 1fr 1fr; }
+    .footer-social-col { grid-column: span 3; }
+}
+
+@media (max-width: 1024px) {
+    .header-nav { display: none; }
+    .nav-toggle { display: flex; }
+    .brand-corner { display: block; }
+    .nav-logo { display: none; }
+    .header-nav.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: hsl(var(--background));
+        border-bottom: 1px solid hsl(var(--border-c));
+        padding: 1rem var(--pad) 1.5rem;
+        gap: 0;
+        box-shadow: var(--shadow);
+    }
+    .header-nav.open a {
+        padding: 0.95rem 0.25rem;
+        font-size: 0.78rem;
+        border-bottom: 1px solid hsl(var(--border-c) / 0.6);
+    }
+    .header-nav.open a::after { display: none; }
+
+    .services-list, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-grid, .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-metrics, .stats-strip { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.5rem; }
+    .group-overview { grid-template-columns: repeat(2, 1fr); }
+    .go-item:nth-child(2) { border-right: none; }
+    .contact-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 860px) {
+    .signature-item { grid-template-columns: 1fr; gap: 1.8rem; }
+    .signature-img-wrap, .signature-text { grid-column: 1 / -1; }
+    .signature-item .signature-img-wrap, .signature-item.reverse .signature-img-wrap { order: -1; }
+    .about-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+    .about-text, .about-img { grid-column: 1 / -1; }
+    .about-grid.reverse .about-text { order: 0; }
+    .group-cols { grid-template-columns: 1fr; }
+    .entities-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+    .divisions-grid, .services-list, .testimonials-grid,
+    .process-grid, .values-grid { grid-template-columns: 1fr; }
+    .portfolio-item { grid-template-columns: 1fr; gap: 1.4rem; }
+    .pf-overlay { padding-right: 0; }
+    .pf-overlay::after { position: static; margin-top: 0.6rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-social-col { grid-column: span 1; }
+    .header-right .header-cta { display: none; }
+
+    .hero { min-height: 92svh; padding-top: clamp(6rem, 20vw, 8rem); }
+    .hero-title { font-size: clamp(2.1rem, 9vw, 3rem); line-height: 1.04; }
+    .hero-sub { font-size: 0.95rem; margin-top: 1.5rem; }
+    .hero-metrics { padding-top: 1.8rem; margin-top: 2.5rem; }
+    .hero-scroll { display: none; }
+
+    .section-head h2, .lux-section-head h2 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+    .intro-brand h2 { font-size: clamp(1.85rem, 7vw, 2.5rem); }
+    .signature-text h3 { font-size: clamp(1.55rem, 6vw, 2.1rem); }
+    .work-name { font-size: clamp(1.5rem, 6.5vw, 2rem); }
+    .pf-overlay h4 { font-size: clamp(1.4rem, 6vw, 2rem); }
+    .service-hero h1, .about-hero h1 { font-size: clamp(2rem, 9vw, 2.9rem); }
+    .cta-big h2 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+
+    /* work-row: două rânduri pe mobil */
+    .work-row {
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            "num name year"
+            ".   cat  cat";
+        align-items: baseline;
+        column-gap: 1rem;
+    }
+    .work-arrow { display: none; }
+    .work-row:hover .work-name { transform: none; }
+    .work-list:hover .work-row { opacity: 1; }
+}
+
+@media (max-width: 480px) {
+    .hero-title { font-size: clamp(1.85rem, 8.5vw, 2.4rem); }
+    .hero-metrics { gap: 1.5rem 1rem; }
+    .hero-metric .val { font-size: clamp(1.4rem, 6vw, 1.9rem); }
+    .stats-strip, .group-overview { grid-template-columns: 1fr 1fr; }
+    .go-item { border-right: none; }
+    .section-head h2, .lux-section-head h2 { font-size: clamp(1.6rem, 7.5vw, 2.1rem); }
+    .intro-brand h2 { font-size: clamp(1.6rem, 7.5vw, 2.1rem); }
+    .process-section > h2 { font-size: clamp(1.6rem, 7.5vw, 2.1rem); }
+    .faq-q { font-size: clamp(1.05rem, 5vw, 1.3rem); }
+    .division-card { min-height: 300px; }
+    .btn, .hero-btn, .contact-submit { padding: 1rem 1.6rem; font-size: 0.68rem; }
+    .hero-ctas, .cta-actions { flex-direction: column; align-items: stretch; }
+}
+
+/* ============================================================
+   MIȘCARE REDUSĂ
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero-bg-overlay { animation: none; }
+    .hero-scroll svg { animation: none; }
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
